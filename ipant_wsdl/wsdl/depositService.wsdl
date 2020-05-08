@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="depositService"
+             targetNamespace="http://localhost/wsdl/depositService.wsdl"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://localhost/wsdl/depositService.wsdl"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <types>
+    <schema targetNamespace="http://localhost/wsdl/depositService.wsdl"
+            xmlns="http://www.w3.org/2001/XMLSchema">
+      <complexType name="identType">
+        <sequence>
+          <element name="user" type="xsd:string"/>
+          <element name="password" type="xsd:string"/>
+          <element name="serialNum" type="xsd:string"/>
+          <element name="timeStamp" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="providerIdList">
+        <sequence>
+          <element minOccurs="0" name="list">
+	    <complexType>
+	      <sequence>
+		<element maxOccurs="unbounded" minOccurs="0" name="providerId" type="xsd:string"/>
+	      </sequence>
+	    </complexType>
+	  </element>
+        </sequence>
+      </complexType>
+
+      <complexType name="providerType">
+	<sequence>
+	  <element minOccurs="0" name="providerId" type="xsd:string"/>
+	  <element minOccurs="0" name="name" type="xsd:string"/>
+	  <element minOccurs="0" name="shortDescription" type="xsd:string"/>
+	  <element minOccurs="0" name="longDescription" type="xsd:string"/>
+	  <element minOccurs="0" name="logoSmall" type="xsd:base64Binary"/>
+	  <element minOccurs="0" name="logoLarge" type="xsd:base64Binary"/>
+	  <element minOccurs="0" name="logoReceipt" type="xsd:base64Binary"/>
+	  <element name="orderId" type="xsd:int"/>
+	  <element name="providerType" type="xsd:int"/>
+	  <element name="payoutFlowType" type="xsd:int"/>
+	</sequence>
+      </complexType>
+
+      <complexType name="providerList">
+        <sequence>
+          <element minOccurs="0" name="list">
+	    <complexType>
+	      <sequence>
+		<element maxOccurs="unbounded" minOccurs="0" name="provider" type="tns:providerType"/>
+	      </sequence>
+	    </complexType>
+	  </element>
+        </sequence>
+      </complexType>
+
+      <complexType name="receiptType">
+        <sequence>
+          <element minOccurs="0" name="receipt" type="xsd:base64Binary"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="amountType">
+        <sequence>
+          <element name="vatPerc" type="xsd:int"/>
+          <element name="amount" type="xsd:int"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="amountList">
+        <sequence>
+          <element name="list" type="tns:amountType" maxOccurs="unbounded"/>
+        </sequence>
+      </complexType>
+    </schema>
+  </types>
+
+  <message name="IsAliveRequest">
+    <part name="ident" type="tns:identType"/>
+  </message>
+
+  <message name="IsAliveResponse">
+    <part name="status" type="xsd:int"/>
+    <part name="provider" type="tns:providerIdList"/>
+  </message>
+
+   <message name="GetProvidersRequest">
+    <part name="ident" type="tns:identType"/>
+  </message>
+
+  <message name="GetProvidersResponse">
+    <part name="status" type="xsd:int"/>
+    <part name="provider" type="tns:providerList"/>
+  </message>
+
+  <message name="RegisterReceiptRequest">
+    <part name="ident" type="tns:identType"/>
+    <part name="UUID" type="xsd:string"/>
+    <part name="runningDepositNumber" type="xsd:int"/>
+    <part name="amount" type="tns:amountList"/>
+  </message>
+
+  <message name="RegisterReceiptResponse">
+    <part name="status" type="xsd:int"/>
+    <part name="receipt" type="tns:receiptType"/>
+  </message>
+
+  <message name="RegisterErrorReceiptRequest">
+    <part name="ident" type="tns:identType"/>
+    <part name="UUID" type="xsd:string"/>
+    <part name="runningDepositNumber" type="xsd:int"/>
+    <part name="amount" type="tns:amountList"/>
+  </message>
+
+  <message name="RegisterErrorReceiptResponse">
+    <part name="status" type="xsd:int"/>
+  </message>
+
+  <message name="DoneReceiptRequest">
+    <part name="ident" type="tns:identType"/>
+    <part name="UUID" type="xsd:string"/>
+  </message>
+
+  <message name="DoneReceiptResponse">
+    <part name="status" type="xsd:int"/>
+  </message>
+
+  <message name="CancelReceiptRequest">
+    <part name="ident" type="tns:identType"/>
+    <part name="UUID" type="xsd:string"/>
+  </message>
+
+  <message name="CancelReceiptResponse">
+    <part name="status" type="xsd:int"/>
+  </message>
+
+  <portType name="depositPort">
+    <operation name="IsAlive">
+      <input message="tns:IsAliveRequest"/>
+      <output message="tns:IsAliveResponse"/>
+    </operation>
+
+    <operation name="GetProviders">
+      <input message="tns:GetProvidersRequest"/>
+      <output message="tns:GetProvidersResponse"/>
+    </operation>
+
+    <operation name="RegisterReceipt">
+      <input message="tns:RegisterReceiptRequest"/>
+      <output message="tns:RegisterReceiptResponse"/>
+    </operation>
+
+    <operation name="RegisterErrorReceipt">
+      <input message="tns:RegisterErrorReceiptRequest"/>
+      <output message="tns:RegisterErrorReceiptResponse"/>
+    </operation>
+
+    <operation name="DoneReceipt">
+      <input message="tns:DoneReceiptRequest"/>
+      <output message="tns:DoneReceiptResponse"/>
+    </operation>
+
+    <operation name="CancelReceipt">
+      <input message="tns:CancelReceiptRequest"/>
+      <output message="tns:CancelReceiptResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="depositBinding" type="tns:depositPort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="IsAlive">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </input>
+      <output>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="GetProviders">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </input>
+      <output>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="RegisterReceipt">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </input>
+      <output>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="RegisterErrorReceipt">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </input>
+      <output>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="DoneReceipt">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </input>
+      <output>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="CancelReceipt">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </input>
+      <output>
+        <soap:body namespace="http://localhost/wsdl/depositService.wsdl" use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="depositService">
+    <documentation>WSDL File for the Envipco deposit service</documentation>
+    <port binding="tns:depositBinding" name="depositPort">
+      <soap:address location="http://localhost/depositService/" />
+    </port>
+  </service>
+</definitions>

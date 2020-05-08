@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="57px" height="34px" viewBox="0 0 57 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 20</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="02-homescreen-for-you-slider" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-326.000000, -237.000000)">
+        <g id="Group-10" transform="translate(279.000000, 194.000000)">
+            <g id="Group-20" transform="translate(49.000000, 45.000000)">
+                <path d="M20.4763199,7.8209395 C21.0030272,7.77780012 21.3905333,7.33562157 21.3453869,6.8323289 C21.2983595,6.32903623 20.8356095,5.95875662 20.3107833,6.00369347 L6.88350981,7.12531713 C6.63332386,7.14508934 6.40006777,7.26012767 6.2364123,7.44706494 C6.2326501,7.45065989 6.230769,7.45784978 6.22700681,7.46324221 C6.22136352,7.46863463 6.21572022,7.4704321 6.21007693,7.47582452 C6.00691841,7.70949612 5.95989097,8.0060793 6.03137267,8.27929532 L7.19577199,20.9964226 C7.24279943,21.4979178 7.7036683,21.8699948 8.23037558,21.825058 C8.75708286,21.7819186 9.14458894,21.3397401 9.0975615,20.8364474 L8.12503412,10.2025923 L24.4322678,21.7855136 C24.8348227,22.1108563 25.4367738,22.0605271 25.7753714,21.6722727 C26.11585,21.2858159 26.0631793,20.7124217 25.6587433,20.3870789 L9.29131454,8.75562588 L20.4763199,7.8209395 Z" id="Fill-6" fill="#FFFFFF"></path>
+                <rect id="Rectangle-7" fill="#FFFFFF" x="30" y="10" width="25" height="6" rx="3"></rect>
+                <rect id="Rectangle-7-Copy" fill="#FFFFFF" x="30" y="18" width="25" height="6" rx="3"></rect>
+                <rect id="Rectangle-7-Copy-2" fill="#FFFFFF" x="30" y="26" width="25" height="6" rx="3"></rect>
+                <polyline id="Path-3" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="43 6.99901651 43 0 0 0 0 30 26.3119828 30"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>
